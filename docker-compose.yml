@@ -1,0 +1,27 @@
+version: '3.10'
+services:
+  server:
+    build:
+      context: .
+      dockerfile: docker/server/Dockerfile
+    depends_on:
+      - postgres
+    restart: always
+    env_file:
+      - .env
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.server:app --host 0.0.0.0 --port 8000"
+    ports:
+      - 8000:8000
+
+  postgres:
+    image: postgres
+    env_file:
+      - .env
+
+networks:
+  default:
+    driver: bridge
+
+

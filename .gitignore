@@ -1,0 +1,5 @@
+/env
+/.pytest_cache
+test_entities.db
+*__pycache__/
+.idea/
